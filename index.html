@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/movie-widget/assets/favicon.17e50649.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script type="module" crossorigin src="/movie-widget/assets/index.25827435.js"></script>
+  <link rel="stylesheet" href="/movie-widget/assets/index.9940b033.css">
+</head>
+
+<body>
+  <div id="app"></div>
+  
+
+  <div x-data="open" class="m-2">
+    <div x-show="open">
+      <div class="d-flex justify-content-around">
+        <span x-text="hello"></span>
+
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+          <button type="button" class="btn btn-secondary" @click="displayMovies()">Home</button>
+          <button type="button" class="btn btn-secondary" @click="displayFavs()">Favourites</button>
+        </div>
+        <div class="input-group" style="width: 40%;">
+          <input type="search" class="form-control rounded" placeholder="Search" x-model="movieName" aria-label="Search"
+            aria-describedby="search-addon" />
+          <span class="input-group-text border-0" id="search-addon">
+            <i class="fa fa-search btn btn-secondary" @click="showMovie()"></i>
+          </span>
+        </div>
+      </div>
+
+      <div x-init="displayMovies()">
+
+      </div>
+
+      <div class="row justify-content-center" x-show="showSearchResults">
+        <template x-for="movie in movies">
+          <div class="align-items-center col-6 mt-5 ">
+            <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Responsive image" />
+            <p x-text="movie.title"></p>
+            <p x-text="movie.overview"></p>
+            <button
+              @click="moviename=movie.title,description=movie.overview,image=movie.poster_path,addToPlaylist()">Add to
+              favourites</button>
+          </div>
+        </template>
+      </div>
+
+      <div class="row" x-show="showFavs">
+        <template x-for="favmovie in favs">
+          <div class="align-items-center col-4 mt-5 ">
+            <img :src="`https://image.tmdb.org/t/p/w500${favmovie.image}`" alt="Responsive image" />
+            <p x-text="favmovie.title"></p>
+            <button @click="moviename=favmovie.title,removeFav(),displayFavs()">Remove</button>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <div x-show="showError">
+      <span class="alert alert-danger" role="alert" x-text="loginError"></span>
+    </div>
+
+
+    <div x-show="registerSection">
+      <p x-text="message"></p>
+      <div class="d-flex justify-content-center">
+        <!-- <p class="">Register here</p> -->
+        <div class=" col-6 mt-3 mb-3"><label for="user">Name</label>
+          <input type="text" name="username" class="user" x-model="name">
+        </div>
+        <div class="col-6 mt-3 mb-3"><label for="">Surname</label>
+          <input type="text" class="" x-model="surname" placeholder="">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 mt-3 mb-3"><label for="user">Username</label>
+          <input type="text" name="username" class="user" x-model="username">
+        </div>
+        <div class="col-6 mt-3 mb-3"><label for="exampleInputPassword1">Password</label>
+          <input type="password" class="password" x-model="passwordReg" placeholder="Password">
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <button @click="register()" class="">Sign up</button>
+      </div>
+    </div>
+    <div x-show="signInSection">
+      <p class="d-flex justify-content-center mt-5">Already have an account?</p>
+      <div class="d-flex justify-content-center">
+        <button @click="loginSection=true,registerSection=false,signInSection=false">Sign in</button>
+      </div>
+    </div>
+
+    <div x-show="registerMessage">
+      <p>You've successfully registered. Please login here</p>
+    </div>
+
+    <div class="d-flex justify-content-center">
+
+      <div class=" col-6 login align-items-center justify-content-center mt-5 p-3" x-show="loginSection">
+
+
+        <div class="mt-3 mb-3"><label for="user">Username</label>
+          <input type="text" name="username" class="user" x-model="user">
+        </div>
+        <div class="mt-3 mb-3"><label for="exampleInputPassword1">Password</label>
+          <input type="password" class="password" x-model="password" placeholder="Password">
+        </div>
+        <button x-on:click="loggingIn(), loginSection=false">login</button>
+
+      </div>
+
+      <div class="col-6 login align-items-center justify-content-center mt-5 p-3" x-show="hide">
+
+        <div class="mt-3 mb-3"><label for="user">Username</label>
+          <input type="text" name="username" class="user" x-model="user">
+        </div>
+        <div class="mt-3 mb-3"><label for="exampleInputPassword1">Password</label>
+          <input type="password" class="password" x-model="password" placeholder="Password">
+        </div>
+        <button x-on:click="loggingIn()">login</button>
+
+      </div>
+    </div>
+
+    <div>
+
+
+    </div>
+  </div>
+  
+</body>
+
+</html>
