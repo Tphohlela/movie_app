@@ -14,4 +14,4 @@ before_script:
 services:
   - postgresql
 
-script: ./run_build.sh
+script: ./server/test/test.api.js
