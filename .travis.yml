@@ -13,3 +13,5 @@ before_script:
   
 services:
   - postgresql
+
+script: ./run_build.sh
