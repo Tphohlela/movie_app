@@ -5,7 +5,7 @@ const assert = require('assert');
 const fs = require('fs');
 require('dotenv').config()
 
-const API = require('../api');
+const API = require('../server/api');
 const { default: axios } = require('axios');
 const app = express();
 
@@ -25,7 +25,7 @@ describe('The Movie API', function () {
 		await db.none(`delete from user_movies`);
 		await db.none(`delete from movie_user`);
 
-		const commandText = fs.readFileSync('./sql/data.sql', 'utf-8');
+		const commandText = fs.readFileSync('./server/sql/data.sql', 'utf-8');
 		await db.none(commandText)
 	});
 
