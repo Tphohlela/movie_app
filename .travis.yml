@@ -14,4 +14,4 @@ before_script:
 services:
   - postgresql
 
-#  script: server/test/test.api.js run test
+ script: run test/test.api.js
