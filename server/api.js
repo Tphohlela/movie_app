@@ -17,9 +17,9 @@ module.exports = function (app, db) {
             let surname = await db.oneOrNone("select lastname from movie_user where username=$1", [username])
             let checkPassword = await db.oneOrNone("select password from movie_user where username=$1", [username])
             let getId = await db.oneOrNone("select id from movie_user where username=$1", [username])
-            console.log('sdfghnm' + JSON.stringify(checkUser))
-            console.log('sdfghnm' + JSON.stringify(name))
-            console.log('sdfghnm' + JSON.stringify(surname))
+            // console.log('sdfghnm' + JSON.stringify(checkUser))
+            // console.log('sdfghnm' + JSON.stringify(name))
+            // console.log('sdfghnm' + JSON.stringify(surname))
 
             if (checkUser != null && checkPassword.password == password) {
                 return res.json({
@@ -61,7 +61,7 @@ module.exports = function (app, db) {
 
             check = await db.oneOrNone("select * from movie_user where username=$1", [username])
 
-            console.log('sdfghj' + JSON.stringify(check))
+            // console.log('sdfghj' + JSON.stringify(check))
 
             if (check == null) {
                 await db.oneOrNone("insert into movie_user(username,firstname,lastname,password) values ($1,$2,$3,$4)", [username, firstName, lastName, password])
@@ -98,7 +98,7 @@ module.exports = function (app, db) {
 
             check = await db.oneOrNone("select * from user_movies where user_id=$1 and title=$2", [userId, title])
 
-            console.log('sdfghj' + JSON.stringify(check))
+            // console.log('sdfghj' + JSON.stringify(check))
 
             if (check == null) {
                 await db.oneOrNone("insert into user_movies(user_id,title,image) values ($1,$2,$3)", [userId, title, image])
@@ -153,7 +153,7 @@ module.exports = function (app, db) {
             result = await db.none("delete from user_movies where title = $1", [movie])
 
             res.json({
-                data: result
+                data: 'deleted'
             })
         } catch (err) {
             console.log(err);
